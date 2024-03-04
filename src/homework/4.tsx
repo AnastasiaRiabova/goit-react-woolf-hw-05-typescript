@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import noop from "lodash/noop";
 
-type MenuIds = "first" | "second" | "last" | null;
+type MenuIds = "first" | "second" | "last";
 type Menu = { id: MenuIds; title: string };
 
 type SelectedMenu = { id: MenuIds };
@@ -19,7 +19,7 @@ type PropsMenu = {
 };
 
 const MenuSelectedContext = createContext<MenuSelected>({
-  selectedMenu: { id: null },
+  selectedMenu: {} as SelectedMenu,
 });
 
 const MenuActionContext = createContext<MenuAction>({
@@ -31,7 +31,9 @@ type PropsProvider = {
 };
 
 const MenuProvider = ({ children }: PropsProvider) => {
-  const [selectedMenu, setSelectedMenu] = useState<SelectedMenu>({ id: null });
+  const [selectedMenu, setSelectedMenu] = useState<SelectedMenu>(
+    {} as SelectedMenu,
+  );
 
   const menuContextAction = useMemo(
     () => ({
